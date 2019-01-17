@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<style type="text/css">
+input {
+  width: 74px;
+  height: 80px;
+  font-size: 200%;
+}
+div#t1 {
+  width: 300px;
+  font-weight: bold;
+  border:#000000 solid 1px;
+  padding: 5px;
+  text-align: right;
+  font-size: 200%;
+}
+</style>
+<script>
+  n = 0;
+  w = 0;
+  t = 0;
+  print = "";
+  printt = "";
+  printw = "";
+  printr = "";
+  s = 0;
+
+  function b(u) {
+    a = 1;
+    if(n!=0&&u<10){
+      n *= 10;
+    }
+
+    if(u>0 && u<=9){
+      n+=u;
+    }
+    else if(u==10){
+      n=0;
+      w=0;
+      t=0;
+      print="0";
+      printt="";
+      printw="";}
+    else if(u>=11&&u<=14){
+      if(t>0){
+        if(t==1){n=w+n;}
+        else if(t==2){n=w-n;}
+        else if(t==3){n=w*n;}
+        else if(t==4){n=w/n;}
+      }
+      w=n; n=0; t=u-10;
+    }
+    else if(u==19){
+      if(t==1){n=w+n;}
+      else if(t==2){n=w-n;}
+      else if(t==3){n=w*n;}
+      else if(t==4){n=w/n;}
+      printt=printt+" = "+n; s=0;
+      if(t!=0){
+        if(printr==""){
+          printr = printt;
+        }else{
+          printr += "<br />" + printt;
+        }
+      }
+      w=0; t=0;
+    }
+    if(u<10||u==19){
+      print = n;
+    }else if(u==10){
+    }else{
+      if(t==1){
+      print = "＋";
+      }else if(t==2){
+      print = "－";
+      }else if(t==3){
+      print = "×";
+      }else if(t==4){
+      print = "÷";
+      }
+      printt += print;
+    }
+
+    if(n!=0&&u<10){
+      if(s==0&&s!=false){
+        printt = printw+n;
+        s=1;
+      }else if(s=1&&t>0){
+        printt += printw+u;
+        s=2;
+      }else if(s=2&&t>0){
+        printt = printw+n;
+        s=s;
+      }else{
+        //printr = printt;
+        printt = printw+n;
+        s=s;
+      }
+    }
+    if(printt==""&&printr==""){
+      document.getElementById("p1").innerHTML="入力してください";
+    }else if(printt==""){
+      document.getElementById("p1").innerHTML="入力してください<br /><br />---履歴---<br />"+printr;
+    }else if(printr==""){
+      document.getElementById("p1").innerHTML=printt;
+    }else{
+      document.getElementById("p1").innerHTML=printt+"<br /><br />---履歴---<br />"+printr;
+    }
+    //document.getElementById("p1").innerHTML="<br />print:"+print+"<br />printt:"+printt+"<br />printw:"
+    //+printw+"<br />printr:"+printr+"<br />n:"+n+"<br />s:"+s;
+    document.getElementById("t1").innerHTML=print;
+    document.getElementById("title").innerHTML="電卓："+printt;
+
+    if(u==19){
+      printt=n;
+    }
+  }
+  function r() {
+    location.reload();
+  }
+</script>
+<title id="title">電卓</title>
+</head>
+<body>
+<form>
+	<div id="t1">0</div>
+	<input type="button" value="7" onclick="b(7)" />
+	<input type="button" value="8" onclick="b(8)" />
+	<input type="button" value="9" onclick="b(9)" />
+	<input type="button" value="÷" onclick="b(14)" />
+	<br />
+	<input type="button" value="4" onclick="b(4)" />
+	<input type="button" value="5" onclick="b(5)" />
+	<input type="button" value="6" onclick="b(6)" />
+	<input type="button" value="×" onclick="b(13)" />
+	<br />
+	<input type="button" value="1" onclick="b(1)" />
+	<input type="button" value="2" onclick="b(2)" />
+	<input type="button" value="3" onclick="b(3)" />
+	<input type="button" value="-" onclick="b(12)" />
+	<br />
+	<input type="button" value="0" onclick="b(0)" />
+	<input type="button" value="=" onclick="b(19)" />
+	<input type="button" value="C" onclick="b(10)" />
+	<input type="button" value="+" onclick="b(11)" />
+</form>
+<p id="p1">入力してください</p>
+
+</body>
+</html>
